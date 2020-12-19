@@ -1,109 +1,120 @@
 <template>
-    <div>
-        <v-app>
-            <v-simple-table>
-                <template v-slot:default>
-                    <thead class="red darken-1">
-                        <tr>
-                            <th class="text-left">Location</th>
-                            <th class="text-left">Blood Type</th>
-                            <th class="text-left">Reason</th>
-                            <th class="text-left">Requestor</th>
-                            <th class="text-left">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="item in data" :key="item.id">
-                            <td>{{ item.location }}</td>
-                            <td>{{ item.bloodType }}</td>
-
-                            <td>{{ item.reason }}</td>
-                            <td>{{ item.user_id }}</td>
-                            <td>
-                                <b-button variant="primary">View</b-button>
-                                <b-button variant="warning">Edit</b-button>
-                                <v-dialog
-                                    v-model="dialog"
-                                    persistent
-                                    max-width="290"
-                                >
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <b-button
-                                            v-bind="attrs"
-                                            v-on="on"
-                                            variant="danger"
-                                            >Delete</b-button
-                                        >
-                                    </template>
-                                    <v-card>
-                                        <v-card-title class="headline">
-                                            Use Google's location service?
-                                        </v-card-title>
-                                        <v-card-text
-                                            >Let Google help apps determine
-                                            location. This means sending
-                                            anonymous location data to Google,
-                                            even when no apps are
-                                            running.</v-card-text
-                                        >
-                                        <v-card-actions>
-                                            <v-spacer></v-spacer>
-                                            <v-btn
-                                                color="green darken-1"
-                                                text
-                                                @click="dialog = false"
-                                            >
-                                                Disagree
-                                            </v-btn>
-                                            <v-btn
-                                                color="green darken-1"
-                                                text
-                                                @click="dialog = false"
-                                            >
-                                                Agree
-                                            </v-btn>
-                                        </v-card-actions>
-                                    </v-card>
-                                </v-dialog>
-                            </td>
-                        </tr>
-                    </tbody>
-                </template>
-            </v-simple-table>
-        </v-app>
-    </div>
+  <div class="request-table">
+    <h3>Request Table</h3>
+    <v-data-table
+      dense
+      :headers="headers"
+      :items="desserts"
+      item-key="name"
+      class="elevation-1"
+    ></v-data-table>
+  </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            dialog: false,
-            data: []
-        };
-    },
-    created() {
-        this.getAllEvent();
-    },
-    methods: {
-        getAllEvent() {
-            axios
-                .get("http://localhost:8000/request/")
-                .then(response => {
-                    if (response != null) {
-                        this.data = response.data;
-                    }
-                })
-                .catch(error => {});
-        }
-    }
+  data: () => ({
+    desserts: [
+      {
+        name: "Frozen Yogurt",
+        calories: 159,
+        fat: 6.0,
+        carbs: 24,
+        protein: 4.0,
+        iron: "1%",
+      },
+      {
+        name: "Ice cream sandwich",
+        calories: 237,
+        fat: 9.0,
+        carbs: 37,
+        protein: 4.3,
+        iron: "1%",
+      },
+      {
+        name: "Eclair",
+        calories: 262,
+        fat: 16.0,
+        carbs: 23,
+        protein: 6.0,
+        iron: "7%",
+      },
+      {
+        name: "Cupcake",
+        calories: 305,
+        fat: 3.7,
+        carbs: 67,
+        protein: 4.3,
+        iron: "8%",
+      },
+      {
+        name: "Gingerbread",
+        calories: 356,
+        fat: 16.0,
+        carbs: 49,
+        protein: 3.9,
+        iron: "16%",
+      },
+      {
+        name: "Jelly bean",
+        calories: 375,
+        fat: 0.0,
+        carbs: 94,
+        protein: 0.0,
+        iron: "0%",
+      },
+      {
+        name: "Lollipop",
+        calories: 392,
+        fat: 0.2,
+        carbs: 98,
+        protein: 0,
+        iron: "2%",
+      },
+      {
+        name: "Honeycomb",
+        calories: 408,
+        fat: 3.2,
+        carbs: 87,
+        protein: 6.5,
+        iron: "45%",
+      },
+      {
+        name: "Donut",
+        calories: 452,
+        fat: 25.0,
+        carbs: 51,
+        protein: 4.9,
+        iron: "22%",
+      },
+      {
+        name: "KitKat",
+        calories: 518,
+        fat: 26.0,
+        carbs: 65,
+        protein: 7,
+        iron: "6%",
+      },
+    ],
+    headers: [
+      {
+        text: "Dessert (100g serving)",
+        align: "start",
+        sortable: false,
+        value: "name",
+      },
+      { text: "Calories", value: "calories" },
+      { text: "Fat (g)", value: "fat" },
+      { text: "Carbs (g)", value: "carbs" },
+      { text: "Protein (g)", value: "protein" },
+      { text: "Iron (%)", value: "iron" },
+    ],
+  }),
 };
 </script>
 
 <style scoped>
-div {
-    margin-top: 20px;
-    margin-left: 30px;
-    margin-right: 30px;
+.request-table {
+  margin: 1.5rem;
 }
 </style>

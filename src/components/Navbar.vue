@@ -1,104 +1,72 @@
 <template>
-    <div>
-        <nav class="navbar navbar-expand-md navbar-dark bg-danger shadow-sm">
-            <div class="container">
-                <router-link class="navbar-brand" to="/">
-                    Easy Blood
-                </router-link>
-                <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                >
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+  <div>
+    <v-app-bar color="red accent-4" dense dark>
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-                <div
-                    class="collapse navbar-collapse"
-                    id="navbarSupportedContent"
-                >
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <router-link class="nav-link" to="/Event"
-                                >Event</router-link
-                            >
-                        </li>
+      <v-toolbar-title>
+        <router-link tag="span" to="/">
+          <span class="mr-2">Home</span>
+        </router-link></v-toolbar-title
+      >
 
-                        <li class="nav-item">
-                            <router-link class="nav-link" to="/Request"
-                                >Find Request
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link class="nav-link" to="/About"
-                                >About
-                            </router-link>
-                        </li>
-                    </ul>
+      <v-spacer></v-spacer>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Register</a>
-                        </li>
-                        <!-- @else -->
-                        <!-- <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }}
-                            </a>
+      <router-link tag="span" to="/Request">
+        <span class="mr-2">Request</span>
+      </router-link>
 
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
+      <router-link tag="span" to="/Event">
+        <span class="mr-2">Event</span>
+      </router-link>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                        @endguest -->
-                    </ul>
-                </div>
-            </div>
-        </nav>
+      <router-link tag="span" to="/Profile">
+        <span class="mr-2">Profile</span>
+      </router-link>
 
-        <v-main>
-            <router-view></router-view>
-        </v-main>
-    </div>
+      <router-link tag="span" to="/Admin">
+        <span class="mr-2">Admin</span>
+      </router-link>
+      <router-link tag="span" to="/Login">
+        <span class="mr-2">Login</span>
+      </router-link>
+
+      <div class="mx-3"></div>
+
+      <v-badge
+        bordered
+        bottom
+        color="deep-purple accent-4"
+        dot
+        offset-x="10"
+        offset-y="10"
+      >
+        <v-avatar size="40">
+          <v-img src="https://cdn.vuetifyjs.com/images/lists/2.jpg"></v-img>
+        </v-avatar>
+      </v-badge>
+
+      <div class="mx-3"></div>
+      <!-- <v-menu left bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon v-bind="attrs" v-on="on">
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </template>
+
+        <v-list>
+          <v-list-item v-for="n in 5" :key="n" @click="() => {}">
+            <v-list-item-title>Option {{ n }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu> -->
+    </v-app-bar>
+  </div>
 </template>
 
 <script>
-import axios from "axios";
-import EventTable from "./EventTable";
-import RequestTable from "./RequestTable";
-import UserTable from "./UserTable";
-import Navbar from "./Navbar";
 export default {
-    components: {
-        EventTable,
-        RequestTable,
-        UserTable,
-        Navbar
-    },
-    mounted() {
-        console.log("Component mounted.");
-    }
+  name: "NavBar",
 };
 </script>
 
-<style scoped>
-.navbar {
-    box-shadow: 2px 3px 5px black !important;
-}
-</style>
+<style scoped></style>

@@ -1,84 +1,71 @@
 <template>
-    <div class="eventTable">
-        <v-simple-table>
-            <template v-slot:default>
-                <thead class=" red darken-1">
-                    <tr>
-                        <th class="text-left">
-                            Name
-                        </th>
-                        <th class="text-left">
-                            Location
-                        </th>
-                        <th class="text-left">
-                            Organizer
-                        </th>
-                        <th class="text-left">
-                            Date Start
-                        </th>
-                        <th class="text-left">
-                            Date End
-                        </th>
-                        <th class="text-left">
-                            Time Start
-                        </th>
-                        <th class="text-left">
-                            Time End
-                        </th>
-                        <th class="text-left">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="item in data" :key="item.name">
-                        <td>{{ item.name }}</td>
-                        <td>{{ item.location }}</td>
+  <div class="request-table">
+    <v-row class="justify-center">
+      <h3>Event List</h3>
+    </v-row>
+    <v-container class="grey lighten-5">
+      <v-row v-for="n in 2" :key="n" :class="n === 1 ? 'mb-16' : ''" no-gutters>
+        <v-col v-for="k in 4" :key="k">
+          <v-card class="mx-auto" max-width="344">
+            <v-img
+              src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+              height="200px"
+            ></v-img>
 
-                        <td>{{ item.organizer }}</td>
-                        <td>{{ item.dateStart }}</td>
-                        <td>{{ item.dateEnd }}</td>
-                        <td>{{ item.timeStart }}</td>
-                        <td>{{ item.timeEnd }}</td>
-                        <td>
-                            <b-button class="shadow-lg m-1" variant="primary"
-                                >View</b-button
-                            >
+            <v-card-title>
+              Top western road trips
+            </v-card-title>
 
-                            <b-button variant="warning">Edit</b-button>
+            <v-card-subtitle>
+              1,000 miles of wonder
+            </v-card-subtitle>
 
-                            <b-button class="shadow-lg m-1" variant="danger"
-                                >Delete</b-button
-                            >
-                        </td>
-                    </tr>
-                </tbody>
-            </template>
-        </v-simple-table>
-    </div>
+            <v-card-actions>
+              <v-btn color="orange lighten-2" text>
+                Explore
+              </v-btn>
+
+              <v-spacer></v-spacer>
+
+              <v-btn icon @click="show = !show">
+                <v-icon>{{
+                  show ? "mdi-chevron-up" : "mdi-chevron-down"
+                }}</v-icon>
+              </v-btn>
+            </v-card-actions>
+
+            <v-expand-transition>
+              <div v-show="show">
+                <v-divider></v-divider>
+
+                <v-card-text>
+                  I'm a thing. But, like most politicians, he promised more than
+                  he could deliver. You won't have time for sleeping, soldier,
+                  not with all the bed making you'll be doing. Then we'll go
+                  with that data file! Hey, you add a one and two zeros to that
+                  or we walk! You're going to do his laundry? I've got to find a
+                  way to escape.
+                </v-card-text>
+              </div>
+            </v-expand-transition>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            data: []
-        };
-    },
-    created() {
-        this.getAllEvent();
-    },
-    methods: {
-        getAllEvent() {
-            axios
-                .get("http://localhost:8000/event/")
-                .then(response => {
-                    if (response != null) {
-                        this.data = response.data;
-                    }
-                })
-                .catch(error => {});
-        }
-    }
+  name: "EventTable",
+  data: () => ({
+    show: false,
+  }),
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.request-table {
+  margin: 1.5rem;
+}
+</style>

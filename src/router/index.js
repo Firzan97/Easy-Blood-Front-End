@@ -1,38 +1,17 @@
-import Vue from "vue";
 import VueRouter from "vue-router";
-import Event from "../views/Event.vue";
 import FindRequest from "../components/RequestTable.vue";
-import About from "../components/UserTable.vue";
 import Home from "../views/Home.vue";
-
-
+import EventTable from "../components/EventTable";
+import ProfileCard from "../components/ProfileCard"
+import Admin from "../views/Admin"
 
 
 const routes = [{
-        path: '/Event',
-        name: "Event",
-        component: Event,
-        meta: {
-            title: 'Event',
-
-        }
-        //  { path: '*', component: NotFoundComponent }
-    },
-    {
         path: '/Request',
         name: "Request",
         component: FindRequest,
         meta: {
             title: 'Request',
-
-        }
-        //  { path: '*', component: NotFoundComponent }
-    }, {
-        path: '/About',
-        name: "About",
-        component: About,
-        meta: {
-            title: 'About',
 
         }
         //  { path: '*', component: NotFoundComponent }
@@ -46,7 +25,37 @@ const routes = [{
 
         }
         //  { path: '*', component: NotFoundComponent }
-    }
+    },
+    {
+        path: '/Event',
+        name: "Event",
+        component: EventTable,
+        meta: {
+            title: 'Event',
+
+        }
+        //  { path: '*', component: NotFoundComponent }
+    },
+    {
+        path: '/Profile',
+        name: "Profile",
+        component: ProfileCard,
+        meta: {
+            title: 'Profile',
+
+        }
+        //  { path: '*', component: NotFoundComponent }
+    },
+    {
+        path: '/Admin',
+        name: "Admin",
+        component: Admin,
+        meta: {
+            title: 'Admin',
+
+        }
+        //  { path: '*', component: NotFoundComponent }
+    },
 ]
 const router = new VueRouter({
     // short for `routes: routes`,
