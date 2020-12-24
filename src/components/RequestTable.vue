@@ -12,15 +12,19 @@
       >
         <v-col v-for="k in eventRow[n - 1]" :key="k">
           <v-card class="mx-auto" max-width="344">
-            <v-img :src="k.imageURL" height="200px"></v-img>
+            <v-img
+              src="https://medcitynews.com/uploads/2019/02/GettyImages-890451438.jpg"
+              height="200px"
+            ></v-img>
 
-            <v-card-title>Blood Type {{ k.bloodType }} </v-card-title>
+            <v-card-title> {{ k.user.username }} </v-card-title>
 
-            <v-card-subtitle> {{ k.reason }} </v-card-subtitle>
+            <v-card-subtitle> {{ k.location }} </v-card-subtitle>
+            <v-card-subtitle> Blood Type {{ k.bloodType }} </v-card-subtitle>
 
             <v-card-actions>
               <v-btn color="orange lighten-2" text>
-                Explore
+                Reason
               </v-btn>
 
               <v-spacer></v-spacer>
@@ -37,12 +41,7 @@
                 <v-divider></v-divider>
 
                 <v-card-text>
-                  I'm a thing. But, like most politicians, he promised more than
-                  he could deliver. You won't have time for sleeping, soldier,
-                  not with all the bed making you'll be doing. Then we'll go
-                  with that data file! Hey, you add a one and two zeros to that
-                  or we walk! You're going to do his laundry? I've got to find a
-                  way to escape.
+                  {{ k.reason }}
                 </v-card-text>
               </div>
             </v-expand-transition>

@@ -1,88 +1,67 @@
 <template>
-  <form>
-    <v-text-field
-      v-model="name"
-      :error-messages="nameErrors"
-      :counter="10"
-      label="Name"
-      required
-      @input="$v.name.$touch()"
-      @blur="$v.name.$touch()"
-    ></v-text-field>
-    <v-text-field
-      v-model="email"
-      :error-messages="emailErrors"
-      label="E-mail"
-      required
-      @input="$v.email.$touch()"
-      @blur="$v.email.$touch()"
-    ></v-text-field>
-    <v-select
-      v-model="select"
-      :items="items"
-      :error-messages="selectErrors"
-      label="Item"
-      required
-      @change="$v.select.$touch()"
-      @blur="$v.select.$touch()"
-    ></v-select>
-    <v-checkbox
-      v-model="checkbox"
-      :error-messages="checkboxErrors"
-      label="Do you agree?"
-      required
-      @change="$v.checkbox.$touch()"
-      @blur="$v.checkbox.$touch()"
-    ></v-checkbox>
+  <v-container>
+    <v-row class="d-flex justify-center">
+      <v-col cols="6">
+        <h1 class="d-flex justify-center">Login</h1>
+        <form class="form-login">
+          <v-text-field
+            v-model="email"
+            :error-messages="emailErrors"
+            label="E-mail"
+            required
+            @input="$v.email.$touch()"
+            @blur="$v.email.$touch()"
+          ></v-text-field>
+          <v-text-field
+            v-model="password"
+            :error-messages="passwordErrors"
+            :counter="10"
+            label="Password"
+            required
+            @input="$v.password.$touch()"
+            @blur="$v.password.$touch()"
+          ></v-text-field>
 
-    <v-btn class="mr-4" @click="submit">
-      submit
-    </v-btn>
-    <v-btn @click="clear">
-      clear
-    </v-btn>
-  </form>
+          <v-btn class="mr-4" @click="login">
+            Login
+          </v-btn>
+          <v-btn @click="clear">
+            clear
+          </v-btn>
+        </form>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
 import { validationMixin } from "vuelidate";
-import { required, maxLength, email } from "vuelidate/lib/validators";
+import {
+  required,
+  maxLength,
+  email,
+  minLength,
+} from "vuelidate/lib/validators";
 
 export default {
   mixins: [validationMixin],
 
   validations: {
     name: { required, maxLength: maxLength(10) },
+    password: { required, minLength: minLength(6) },
     email: { required, email },
-    select: { required },
-    checkbox: {
-      checked(val) {
-        return val;
-      },
-    },
   },
 
   data: () => ({
     name: "",
     email: "",
+    password: "",
     select: null,
     items: ["Item 1", "Item 2", "Item 3", "Item 4"],
     checkbox: false,
   }),
 
   computed: {
-    checkboxErrors() {
-      const errors = [];
-      if (!this.$v.checkbox.$dirty) return errors;
-      !this.$v.checkbox.checked && errors.push("You must agree to continue!");
-      return errors;
-    },
-    selectErrors() {
-      const errors = [];
-      if (!this.$v.select.$dirty) return errors;
-      !this.$v.select.required && errors.push("Item is required");
-      return errors;
-    },
     nameErrors() {
       const errors = [];
       if (!this.$v.name.$dirty) return errors;
@@ -98,11 +77,23 @@ export default {
       !this.$v.email.required && errors.push("E-mail is required");
       return errors;
     },
+    passwordErrors() {
+      const errors = [];
+      if (!this.$v.password.$dirty) return errors;
+      !this.$v.password.minLength &&
+        errors.push("Password must be at least 6 characters long");
+      !this.$v.password.required && errors.push("Password is required.");
+      return errors;
+    },
   },
 
   methods: {
-    submit() {
+    login() {
       this.$v.$touch();
+      this.$store.dispatch("login", {
+        email: this.email,
+        password: this.password,
+      });
     },
     clear() {
       this.$v.$reset();
@@ -114,3 +105,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+/* .form-login {
+  width: 50%;
+} */
+</style>

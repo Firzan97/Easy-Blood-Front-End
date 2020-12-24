@@ -7,25 +7,23 @@
       <v-row
         v-for="n in Math.ceil(this.count / 4)"
         :key="n"
-        :class="n === 1 ? 'mb-16' : ''"
+        class=" mb-16"
         no-gutters
       >
         <v-col v-for="k in eventRow[n - 1]" :key="k">
           <v-card class="mx-auto" max-width="344">
-            <v-img
-              src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-              height="200px"
-            ></v-img>
+            <v-img :src="k.imageURL" height="200px"></v-img>
 
             <v-card-title> {{ k.name }} </v-card-title>
 
-            <v-card-subtitle>
-              1,000 miles of wonder
-            </v-card-subtitle>
+            <v-card-subtitle> {{ k.location }} </v-card-subtitle>
+            <p>Date: {{ k.dateStart }} - {{ k.dateEnd }}</p>
+            <p>Time: {{ k.timeStart }} until {{ k.timeEnd }}</p>
+            <p>Contact: {{ k.phoneNum }}</p>
 
             <v-card-actions>
               <v-btn color="orange lighten-2" text>
-                Explore
+                More
               </v-btn>
 
               <v-spacer></v-spacer>
