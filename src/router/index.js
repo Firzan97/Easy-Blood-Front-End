@@ -4,8 +4,8 @@ import Home from "../views/Home.vue";
 import EventTable from "../components/EventTable";
 import ProfileCard from "../components/ProfileCard"
 import Admin from "../views/Admin"
-
-
+import Login from "../components/Login"
+import Register from "../components/Register"
 const routes = [{
         path: '/Request',
         name: "Request",
@@ -52,6 +52,26 @@ const routes = [{
         component: Admin,
         meta: {
             title: 'Admin',
+
+        }
+        //  { path: '*', component: NotFoundComponent }
+    },
+    {
+        path: '/Login',
+        name: "Login",
+        component: Login,
+        meta: {
+            title: 'Login',
+
+        }
+        //  { path: '*', component: NotFoundComponent }
+    },
+    {
+        path: '/Register',
+        name: "Register",
+        component: Register,
+        meta: {
+            title: 'Register',
 
         }
         //  { path: '*', component: NotFoundComponent }

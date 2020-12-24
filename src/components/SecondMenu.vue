@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pa-4 text-center">
+  <v-container class="pa-4 text-center ">
     <h1>Latest event</h1>
     <v-row class="fill-height" align="center" justify="center">
       <template v-for="(item, i) in items">

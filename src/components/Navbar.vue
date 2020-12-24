@@ -29,7 +29,9 @@
       <router-link tag="span" to="/Login">
         <span class="mr-2">Login</span>
       </router-link>
-
+      <router-link tag="span" to="/Register">
+        <span class="mr-2">Register</span>
+      </router-link>
       <div class="mx-3"></div>
 
       <v-badge

@@ -4,17 +4,20 @@
       <h3>Event List</h3>
     </v-row>
     <v-container class="grey lighten-5">
-      <v-row v-for="n in 2" :key="n" :class="n === 1 ? 'mb-16' : ''" no-gutters>
-        <v-col v-for="k in 4" :key="k">
+      <v-row
+        v-for="n in Math.ceil(this.count / 4)"
+        :key="n"
+        :class="n === 1 ? 'mb-16' : ''"
+        no-gutters
+      >
+        <v-col v-for="k in eventRow[n - 1]" :key="k">
           <v-card class="mx-auto" max-width="344">
             <v-img
               src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
               height="200px"
             ></v-img>
 
-            <v-card-title>
-              Top western road trips
-            </v-card-title>
+            <v-card-title> {{ k.name }} </v-card-title>
 
             <v-card-subtitle>
               1,000 miles of wonder
@@ -56,11 +59,61 @@
 </template>
 
 <script>
+const axios = require("axios");
 export default {
   name: "EventTable",
-  data: () => ({
-    show: false,
-  }),
+  data() {
+    return {
+      count: 0,
+      show: false,
+      currentRow: 0,
+      currentColumn: 0,
+      event: [],
+      eventRow: [],
+      anotherRow: false,
+    };
+  },
+  created() {
+    this.getEvent();
+  },
+  methods: {
+    getEvent() {
+      axios
+        .get("http://peaceful-springs-09367.herokuapp.com/api/event")
+        .then((response) => {
+          // handle success
+          console.log(response);
+          this.count = response.data.length;
+          this.currentRow = Math.ceil(this.count / 4);
+          for (var x = 1; x <= this.count; x++) {
+            this.event.push(response.data[x - 1]);
+            if (x % 4 == 0) {
+              this.eventRow.push(this.event);
+              if (x % 4 == 0) {
+                this.anotherRow = true;
+                this.event = [];
+              }
+            }
+            if (this.anotherRow == true) {
+              if (x == this.count) {
+                this.eventRow.push(this.event);
+              }
+              if (this.anotherRow == false) {
+                this.event = [];
+              }
+            }
+          }
+          if (this.count < 4) {
+            this.eventRow.push(this.event);
+          }
+          this.currentColumn = this.count;
+        })
+        .catch((error) => {
+          // handle error
+          console.log(error);
+        });
+    },
+  },
 };
 </script>
 
