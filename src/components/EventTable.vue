@@ -3,7 +3,16 @@
     <v-row class="justify-center">
       <h3>Event List</h3>
     </v-row>
-    <v-container class="grey lighten-5">
+    <v-row class="justify-center">
+      <v-progress-circular
+        :size="120"
+        :width="15"
+        color="red"
+        indeterminate
+        v-if="count == 0"
+      ></v-progress-circular>
+    </v-row>
+    <v-container class="grey lighten-5" v-if="count != 0">
       <v-row
         v-for="n in Math.ceil(this.count / 4)"
         :key="n"

@@ -1,30 +1,7 @@
 <template>
-  <div>
+  <div class="profile">
     <v-card class="mx-auto" max-width="434" tile>
-      <v-img
-        height="100%"
-        src="https://cdn.vuetifyjs.com/images/cards/server-room.jpg"
-      >
-        <v-row align="end" class="fill-height">
-          <v-col align-self="start" class="pa-0" cols="12">
-            <v-avatar class="profile" color="grey" size="164" tile>
-              <v-img
-                src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
-              ></v-img>
-            </v-avatar>
-          </v-col>
-          <v-col class="py-0">
-            <v-list-item color="rgba(0, 0, 0, .4)" dark>
-              <v-list-item-content>
-                <v-list-item-title class="title">
-                  Marcus Obrien
-                </v-list-item-title>
-                <v-list-item-subtitle>Network Engineer</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-          </v-col>
-        </v-row>
-      </v-img>
+      <v-img height="100%" :src="user.imageURL"> </v-img>
     </v-card>
     <v-file-input
       :rules="rules"
@@ -35,7 +12,7 @@
     ></v-file-input>
     <form>
       <v-text-field
-        v-model="name"
+        v-model="user.username"
         :error-messages="nameErrors"
         :counter="10"
         label="Name"
@@ -44,31 +21,58 @@
         @blur="$v.name.$touch()"
       ></v-text-field>
       <v-text-field
-        v-model="email"
+        v-model="user.email"
         :error-messages="emailErrors"
         label="E-mail"
         required
         @input="$v.email.$touch()"
         @blur="$v.email.$touch()"
       ></v-text-field>
-      <v-select
-        v-model="select"
-        :items="items"
-        :error-messages="selectErrors"
-        label="Item"
+      <v-text-field
+        v-model="user.age"
+        :error-messages="nameErrors"
+        :counter="10"
+        label="Age"
         required
-        @change="$v.select.$touch()"
-        @blur="$v.select.$touch()"
-      ></v-select>
-      <v-checkbox
-        v-model="checkbox"
-        :error-messages="checkboxErrors"
-        label="Do you agree?"
+        @input="$v.name.$touch()"
+        @blur="$v.name.$touch()"
+      ></v-text-field>
+      <v-text-field
+        v-model="user.bloodType"
+        :error-messages="nameErrors"
+        :counter="10"
+        label="Blood Type"
         required
-        @change="$v.checkbox.$touch()"
-        @blur="$v.checkbox.$touch()"
-      ></v-checkbox>
-
+        @input="$v.name.$touch()"
+        @blur="$v.name.$touch()"
+      ></v-text-field>
+      <v-text-field
+        v-model="user.weight"
+        :error-messages="nameErrors"
+        :counter="10"
+        label="Weight"
+        required
+        @input="$v.name.$touch()"
+        @blur="$v.name.$touch()"
+      ></v-text-field>
+      <v-text-field
+        v-model="user.height"
+        :error-messages="nameErrors"
+        :counter="10"
+        label="Height"
+        required
+        @input="$v.name.$touch()"
+        @blur="$v.name.$touch()"
+      ></v-text-field>
+      <v-text-field
+        v-model="user.phoneNumber"
+        :error-messages="nameErrors"
+        :counter="10"
+        label="Phone Number"
+        required
+        @input="$v.name.$touch()"
+        @blur="$v.name.$touch()"
+      ></v-text-field>
       <v-btn class="mr-4" @click="submit">
         submit
       </v-btn>
@@ -82,7 +86,20 @@
 <script>
 export default {
   name: "ProfileCard",
+  data() {
+    return {
+      user: [],
+    };
+  },
+  created() {
+    this.user = JSON.parse(localStorage.getItem("user"));
+    console.log(this.user);
+  },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.profile {
+  margin: 2.5rem;
+}
+</style>

@@ -6,13 +6,14 @@ import ProfileCard from "../components/ProfileCard"
 import Admin from "../views/Admin"
 import Login from "../components/Login"
 import Register from "../components/Register"
+import store from "../store/store"
 const routes = [{
         path: '/Request',
         name: "Request",
         component: FindRequest,
         meta: {
             title: 'Request',
-
+            guest: true
         }
         //  { path: '*', component: NotFoundComponent }
     },
@@ -21,8 +22,7 @@ const routes = [{
         name: "Home",
         component: Home,
         meta: {
-            title: 'Home',
-
+            title: 'Home'
         }
         //  { path: '*', component: NotFoundComponent }
     },
@@ -32,6 +32,7 @@ const routes = [{
         component: EventTable,
         meta: {
             title: 'Event',
+            guest: true
 
         }
         //  { path: '*', component: NotFoundComponent }
@@ -42,6 +43,7 @@ const routes = [{
         component: ProfileCard,
         meta: {
             title: 'Profile',
+            requiresAuth: true
 
         }
         //  { path: '*', component: NotFoundComponent }
@@ -52,6 +54,9 @@ const routes = [{
         component: Admin,
         meta: {
             title: 'Admin',
+            is_admin: true,
+            requiresAuth: true
+
 
         }
         //  { path: '*', component: NotFoundComponent }
@@ -62,6 +67,7 @@ const routes = [{
         component: Login,
         meta: {
             title: 'Login',
+            guest: true
 
         }
         //  { path: '*', component: NotFoundComponent }
@@ -72,6 +78,7 @@ const routes = [{
         component: Register,
         meta: {
             title: 'Register',
+            guest: true
 
         }
         //  { path: '*', component: NotFoundComponent }
@@ -83,9 +90,31 @@ const router = new VueRouter({
     base: "/",
     routes,
 })
+
 router.beforeEach((to, from, next) => {
     document.title = to.meta.title
-    next()
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (store.getters.isLogged == null) {
+            next("/Login")
+
+        } else {
+            let user = JSON.parse(localStorage.getItem("user"));
+            if (to.matched.some(record => record.meta.is_admin)) {
+                if (user.role != "admin") {
+                    next("/Profile")
+
+                } else {
+                    next()
+                }
+            }
+            next()
+        }
+        next()
+
+    } else {
+        next();
+    }
+
 })
 router.replace("/")
 

@@ -6,11 +6,20 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        count: 0
+        count: 0,
+        token: null
     },
     mutations: {
         increment(state) {
             state.count++
+        },
+        updateToken(state, newToken) {
+            state.token = newToken
+        }
+    },
+    getters: {
+        isLogged: state => {
+            return state.token;
         }
     },
     actions: {
@@ -22,9 +31,8 @@ export default new Vuex.Store({
                 const token = response.data.token
                 const user = response.data.user
                 console.log(response)
-                localStorage.setItem("user", user)
-                localStorage.setItem("user", token)
-
+                localStorage.setItem("user", JSON.stringify(user))
+                context.commit("updateToken", token)
                 if (user.role == "user") {
                     router.push("/Profile")
                 } else if (user.role == "admin") {

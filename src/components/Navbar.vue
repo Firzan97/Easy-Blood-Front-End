@@ -20,19 +20,28 @@
       </router-link>
 
       <router-link tag="span" to="/Profile">
-        <span class="mr-2">Profile</span>
+        <span class="mr-2" v-if="this.$store.getters.isLogged != null"
+          >Profile</span
+        >
       </router-link>
 
-      <router-link tag="span" to="/Admin">
+      <router-link
+        tag="span"
+        to="/Admin"
+        v-if="this.$store.getters.isLogged != null"
+      >
         <span class="mr-2">Admin</span>
       </router-link>
       <router-link tag="span" to="/Login">
-        <span class="mr-2">Login</span>
+        <span class="mr-2" v-if="this.$store.getters.isLogged == null"
+          >Login</span
+        >
       </router-link>
       <router-link tag="span" to="/Register">
-        <span class="mr-2">Register</span>
+        <span class="mr-2" v-if="this.$store.getters.isLogged == null"
+          >Register</span
+        >
       </router-link>
-      <div class="mx-3"></div>
 
       <v-badge
         bordered
@@ -41,9 +50,10 @@
         dot
         offset-x="10"
         offset-y="10"
+        v-if="this.$store.getters.isLogged != null"
       >
         <v-avatar size="40">
-          <v-img src="https://cdn.vuetifyjs.com/images/lists/2.jpg"></v-img>
+          <v-img :src="user.imageURL"></v-img>
         </v-avatar>
       </v-badge>
 
@@ -68,6 +78,14 @@
 <script>
 export default {
   name: "NavBar",
+  data() {
+    return {
+      user: "",
+    };
+  },
+  created() {
+    this.user = JSON.parse(localStorage.getItem("user"));
+  },
 };
 </script>
 

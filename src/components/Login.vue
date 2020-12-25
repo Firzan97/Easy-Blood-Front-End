@@ -15,7 +15,7 @@
           <v-text-field
             v-model="password"
             :error-messages="passwordErrors"
-            :counter="10"
+            :counter="6"
             label="Password"
             required
             @input="$v.password.$touch()"
@@ -36,18 +36,12 @@
 
 <script>
 import { validationMixin } from "vuelidate";
-import {
-  required,
-  maxLength,
-  email,
-  minLength,
-} from "vuelidate/lib/validators";
+import { required, email, minLength } from "vuelidate/lib/validators";
 
 export default {
   mixins: [validationMixin],
 
   validations: {
-    name: { required, maxLength: maxLength(10) },
     password: { required, minLength: minLength(6) },
     email: { required, email },
   },
